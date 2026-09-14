@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client Hours Gauge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --plane:#f4f3ef; --surface:#ffffff; --ink:#14161b; --ink-2:#565b64; --ink-3:#8b8f97;
+    --hair:#e7e6e0; --track:#ecebe5; --brand:#2f3b57;
+    --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b; --good-ink:#087008;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --plane:#0d0e10; --surface:#17191d; --ink:#f2f3f5; --ink-2:#b3b8c0; --ink-3:#7e838c;
+      --hair:#26282d; --track:#26282d; --brand:#aab6d1; --good-ink:#3fce3f;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --plane:#0d0e10; --surface:#17191d; --ink:#f2f3f5; --ink-2:#b3b8c0; --ink-3:#7e838c;
+    --hair:#26282d; --track:#26282d; --brand:#aab6d1; --good-ink:#3fce3f;
+  }
+  * { box-sizing:border-box; }
+  html,body { height:100%; }
+  body {
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    display:flex; align-items:center; justify-content:center; padding:20px 16px;
+  }
+  .mono { font-family:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace; }
+  .card {
+    background:var(--surface); border:1px solid var(--hair); border-radius:16px;
+    width:100%; max-width:400px; padding:22px 22px 18px;
+    box-shadow:0 1px 2px rgba(10,12,20,.04), 0 8px 24px rgba(10,12,20,.05);
+  }
+  .head { display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:4px; }
+  .client { font-size:17px; font-weight:600; letter-spacing:-.01em; }
+  .mode {
+    font-size:10px; text-transform:uppercase; letter-spacing:.11em; color:var(--ink-3);
+    border:1px solid var(--hair); border-radius:999px; padding:3px 9px; white-space:nowrap;
+  }
+  .period { font-size:12px; color:var(--ink-2); margin-bottom:6px; }
+  .gauge-wrap { position:relative; width:100%; aspect-ratio:1/0.86; max-width:320px; margin:2px auto 0; }
+  svg { width:100%; height:100%; display:block; }
+  .arc-track { stroke:var(--track); }
+  .center { position:absolute; left:0; right:0; top:50%; transform:translateY(-54%); text-align:center; pointer-events:none; }
+  .value { font-size:46px; font-weight:600; line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+  .value .u { font-size:20px; font-weight:500; color:var(--ink-2); margin-left:2px; }
+  .of { font-size:12.5px; color:var(--ink-2); margin-top:7px; letter-spacing:.02em; }
+  .pct-chip {
+    display:inline-flex; align-items:center; gap:6px; margin-top:10px; font-size:11px; font-weight:600;
+    text-transform:uppercase; letter-spacing:.07em; padding:4px 10px; border-radius:999px;
+  }
+  .pct-chip .dot { width:7px; height:7px; border-radius:50%; }
+  .stats {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--hair);
+    border:1px solid var(--hair); border-radius:12px; overflow:hidden; margin-top:16px;
+  }
+  .stat { background:var(--surface); padding:11px 8px 12px; text-align:center; }
+  .stat .k { font-size:9.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-3); margin-bottom:4px; }
+  .stat .v { font-size:17px; font-weight:600; font-variant-numeric:tabular-nums; letter-spacing:-.01em; }
+  .stat .v small { font-size:11px; font-weight:500; color:var(--ink-2); }
+  .pace { margin-top:16px; }
+  .pace-top { display:flex; justify-content:space-between; align-items:baseline; font-size:11px; color:var(--ink-2); margin-bottom:6px; }
+  .pace-top .lbl { text-transform:uppercase; letter-spacing:.09em; font-size:9.5px; color:var(--ink-3); }
+  .bar { position:relative; height:8px; background:var(--track); border-radius:999px; overflow:visible; }
+  .bar-fill { position:absolute; left:0; top:0; bottom:0; border-radius:999px; }
+  .bar-marker { position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--ink); border-radius:2px; }
+  .bar-marker::after {
+    content:""; position:absolute; top:-4px; left:50%; transform:translateX(-50%);
+    border-left:3.5px solid transparent; border-right:3.5px solid transparent; border-top:4px solid var(--ink);
+  }
+  .pace-note { font-size:11.5px; color:var(--ink-2); margin-top:8px; line-height:1.4; }
+  .pace-note b { color:var(--ink); font-weight:600; }
+  .foot {
+    display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:12px;
+    border-top:1px solid var(--hair); font-size:10.5px; color:var(--ink-3);
+  }
+  .foot .src { display:inline-flex; align-items:center; gap:5px; }
+  .foot .src .d { width:5px; height:5px; border-radius:50%; background:var(--good); }
+  .msg { text-align:center; color:var(--ink-2); font-size:13px; padding:34px 8px; line-height:1.5; }
+  .msg .big { font-size:15px; font-weight:600; color:var(--ink); margin-bottom:6px; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <!-- loading / error state -->
+  <div class="msg" id="state">Loading hours...</div>
+
+  <!-- gauge (revealed once data loads) -->
+  <div id="gauge" hidden>
+    <div class="head">
+      <span class="client" id="client"></span>
+      <span class="mode" id="mode"></span>
+    </div>
+    <div class="period mono" id="period"></div>
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 320 300" aria-hidden="true">
+        <path class="arc-track" id="arcTrack" fill="none" stroke-width="22" stroke-linecap="round"></path>
+        <path id="arcValue" fill="none" stroke-width="22" stroke-linecap="round"></path>
+        <g id="ticks"></g>
+      </svg>
+      <div class="center">
+        <div class="value"><span id="valNum">0</span><span class="u">hrs</span></div>
+        <div class="of mono" id="ofLine"></div>
+        <div class="pct-chip" id="chip"><span class="dot"></span><span id="chipTxt"></span></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="k">Tracked</div><div class="v mono" id="sTracked"></div></div>
+      <div class="stat"><div class="k">Remaining</div><div class="v mono" id="sRemain"></div></div>
+      <div class="stat"><div class="k">Limit</div><div class="v mono" id="sLimit"></div></div>
+    </div>
+    <div class="pace" id="paceBlock">
+      <div class="pace-top">
+        <span class="lbl">Burn vs. calendar</span>
+        <span class="mono" id="pacePcts"></span>
+      </div>
+      <div class="bar">
+        <div class="bar-fill" id="paceFill"></div>
+        <div class="bar-marker" id="paceMarker" title="Where a steady burn would sit today"></div>
+      </div>
+      <div class="pace-note" id="paceNote"></div>
+    </div>
+    <div class="foot">
+      <span class="src"><span class="d"></span>ClickUp time entries</span>
+      <span class="mono" id="synced"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* Where the Zap publishes the totals. Same GitHub Pages origin, so this is a
+   same-origin request (no CORS). Cache-buster keeps the widget from showing a
+   stale copy from GitHub's CDN. */
+const DATA_URL = "./data.json";
+
+const BANDS = [
+  { max:0.75,     color:"var(--good)",     ink:"var(--good-ink)", label:"On track" },
+  { max:0.90,     color:"var(--warning)",  ink:"var(--ink)",      label:"Watch"    },
+  { max:1.00,     color:"var(--serious)",  ink:"var(--ink)",      label:"Near cap" },
+  { max:Infinity, color:"var(--critical)", ink:"var(--critical)", label:"Over cap" }
+];
+
+const CX=160, CY=150, R=118, START=225, SWEEP=270;
+function pt(a, r=R){ const rad=(a-90)*Math.PI/180; return [CX+r*Math.cos(rad), CY+r*Math.sin(rad)]; }
+function arcPath(f0, f1){
+  const [x0,y0]=pt(START+SWEEP*f0), [x1,y1]=pt(START+SWEEP*f1);
+  const large=(SWEEP*(f1-f0))>180?1:0;
+  return `M ${x0.toFixed(2)} ${y0.toFixed(2)} A ${R} ${R} 0 ${large} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+}
+function fmtH(h){ return (Math.round(h*10)/10).toLocaleString(undefined,{maximumFractionDigits:1}); }
+function fmtHM(ms){ const t=Math.round(ms/60000), h=Math.floor(t/60), m=t%60; return h>0?`${h}h ${m}m`:`${m}m`; }
+function fmtSynced(iso){
+  if(!iso) return "";
+  try {
+    return "Synced " + new Date(iso).toLocaleString("en-GB",
+      { day:"2-digit", month:"short", hour:"2-digit", minute:"2-digit", hour12:false, timeZone:"Asia/Tokyo" }) + " JST";
+  } catch(e){ return "Synced " + iso; }
+}
+function $(id){ return document.getElementById(id); }
+
+function render(C){
+  const trackedH = C.trackedMs/3600000;
+  const limit = C.limitHours;
+  const frac = limit>0 ? trackedH/limit : 0;
+  const clamped = Math.max(0, Math.min(1, frac));
+  const pct = Math.round(frac*100);
+  const band = BANDS.find(b => frac<=b.max);
+  const isMonthly = C.mode !== "all-time";
+
+  $("client").textContent = C.client || "Client";
+  $("mode").textContent = isMonthly ? "Monthly" : "All-time";
+  $("period").textContent = C.periodLabel || (isMonthly ? "This month" : "All time to date");
+  $("valNum").textContent = fmtH(trackedH);
+  $("ofLine").textContent = `of ${fmtH(limit)} hrs`;
+  $("sTracked").textContent = fmtHM(C.trackedMs);
+  $("sLimit").innerHTML = `${fmtH(limit)}<small> h</small>`;
+  $("synced").textContent = fmtSynced(C.syncedAt);
+
+  const remaining = limit - trackedH;
+  $("sRemain").innerHTML = remaining>=0 ? `${fmtH(remaining)}<small> h</small>` : `+${fmtH(-remaining)}<small> h over</small>`;
+  $("sRemain").style.color = remaining<0 ? "var(--critical)" : "";
+
+  const chip = $("chip");
+  chip.style.color = band.ink;
+  chip.style.background = `color-mix(in srgb, ${band.color} 14%, transparent)`;
+  chip.querySelector(".dot").style.background = band.color;
+  $("chipTxt").textContent = `${pct}% used · ${band.label}`;
+
+  $("arcTrack").setAttribute("d", arcPath(0,1));
+  const v = $("arcValue");
+  v.setAttribute("d", arcPath(0, Math.max(0.001, clamped)));
+  v.setAttribute("stroke", band.color);
+
+  const ticks = $("ticks");
+  ticks.innerHTML = "";
+  [0.75,0.90,1.0].forEach(f=>{
+    const a=START+SWEEP*f, [ix,iy]=pt(a,R-13), [ox,oy]=pt(a,R+13);
+    const ln=document.createElementNS("http://www.w3.org/2000/svg","line");
+    ln.setAttribute("x1",ix.toFixed(2)); ln.setAttribute("y1",iy.toFixed(2));
+    ln.setAttribute("x2",ox.toFixed(2)); ln.setAttribute("y2",oy.toFixed(2));
+    ln.setAttribute("stroke","var(--ink-3)");
+    ln.setAttribute("stroke-width", f===1?"2":"1.4");
+    ln.setAttribute("opacity", f===1?".55":".32");
+    ticks.appendChild(ln);
+  });
+
+  const paceBlock = $("paceBlock");
+  if(!isMonthly){ paceBlock.hidden = true; }
+  else {
+    paceBlock.hidden = false;
+    const start=new Date(C.monthStartISO+"T00:00:00");
+    const end=new Date(C.monthEndISO+"T00:00:00");
+    const asOf=new Date((C.asOfISO||new Date().toISOString().slice(0,10))+"T00:00:00");
+    const monthFrac=Math.max(0,Math.min(1,(asOf-start)/(end-start)));
+    const monthPct=Math.round(monthFrac*100);
+    const daysLeft=Math.max(0,Math.ceil((end-asOf)/86400000));
+    $("paceFill").style.width=(clamped*100).toFixed(1)+"%";
+    $("paceFill").style.background=band.color;
+    $("paceMarker").style.left=(monthFrac*100).toFixed(1)+"%";
+    $("pacePcts").innerHTML=`${pct}% used · <span style="color:var(--ink-3)">${monthPct}% of month</span>`;
+    const projected = monthFrac>0 ? trackedH/monthFrac : 0;
+    let verdict;
+    if(frac>1) verdict=`<b>Over the ${fmtH(limit)}-hr cap.</b> ${daysLeft} day${daysLeft===1?"":"s"} left in the month.`;
+    else if(frac<=monthFrac-0.05) verdict=`<b>Under pace.</b> Projecting ~${fmtH(projected)} hrs by month-end · ${daysLeft} days left.`;
+    else if(frac>=monthFrac+0.05) verdict=`<b>Ahead of pace.</b> Projecting ~${fmtH(projected)} hrs by month-end · ${daysLeft} days left.`;
+    else verdict=`<b>On pace.</b> Projecting ~${fmtH(projected)} hrs by month-end · ${daysLeft} days left.`;
+    $("paceNote").innerHTML=verdict;
+  }
+
+  $("state").hidden = true;
+  $("gauge").hidden = false;
+}
+
+function showError(msg){
+  const s=$("state");
+  s.hidden=false;
+  $("gauge").hidden=true;
+  s.innerHTML=`<div class="big">Can't show hours</div>${msg}`;
+}
+
+async function boot(){
+  const spaceId = new URLSearchParams(location.search).get("space");
+  if(!spaceId){ showError("Add <code>?space=&lt;ClickUp space id&gt;</code> to the widget URL."); return; }
+  try {
+    const res = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache:"no-store" });
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    const data = await res.json();
+    const C = data.clients && data.clients[spaceId];
+    if(!C){ showError(`No client is configured for space <code>${spaceId}</code> yet.`); return; }
+    render(C);
+  } catch(e){
+    showError("Couldn't load the latest totals. The sync may not have run yet.");
+  }
+}
+boot();
+</script>
+</body>
+</html>

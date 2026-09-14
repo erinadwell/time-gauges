@@ -1,0 +1,16 @@
+{
+  "updated": "2026-09-14T00:00:00Z",
+  "clients": {
+    "90148085487": {
+      "client": "LabFinder",
+      "mode": "monthly",
+      "limitHours": 37,
+      "trackedMs": 9504688,
+      "periodLabel": "September 2026",
+      "monthStartISO": "2026-09-01",
+      "monthEndISO": "2026-10-01",
+      "asOfISO": "2026-09-14",
+      "syncedAt": "2026-09-14T00:00:00Z"
+    }
+  }
+}
