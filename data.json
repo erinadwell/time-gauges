@@ -1,16 +1,16 @@
 {
-  "updated": "2026-09-14T03:27:11.478Z",
+  "updated": "2026-09-14T21:00:41.085Z",
   "clients": {
     "90148085487": {
       "client": "LabFinder",
       "mode": "monthly",
       "limitHours": 37,
-      "trackedMs": 11746757,
+      "trackedMs": 27646757,
       "periodLabel": "September 2026",
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
       "asOfISO": "2026-09-14",
-      "syncedAt": "2026-09-14T03:27:10.230Z"
+      "syncedAt": "2026-09-14T21:00:39.613Z"
     },
     "90148086172": {
       "client": "Guerrilla Charm",
@@ -21,7 +21,7 @@
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
       "asOfISO": "2026-09-14",
-      "syncedAt": "2026-09-14T03:27:10.426Z"
+      "syncedAt": "2026-09-14T21:00:39.932Z"
     },
     "90148088685": {
       "client": "Sullivan Healthcare",
@@ -32,7 +32,7 @@
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
       "asOfISO": "2026-09-14",
-      "syncedAt": "2026-09-14T03:27:10.606Z"
+      "syncedAt": "2026-09-14T21:00:40.208Z"
     },
     "90148090283": {
       "client": "RDU Law Firm",
@@ -43,7 +43,7 @@
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
       "asOfISO": "2026-09-14",
-      "syncedAt": "2026-09-14T03:27:10.833Z"
+      "syncedAt": "2026-09-14T21:00:40.466Z"
     },
     "90148090929": {
       "client": "Senexis AI",
@@ -54,7 +54,7 @@
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
       "asOfISO": "2026-09-14",
-      "syncedAt": "2026-09-14T03:27:11.062Z"
+      "syncedAt": "2026-09-14T21:00:40.638Z"
     },
     "90148091353": {
       "client": "TADA Cognitive Solutions",
@@ -65,7 +65,7 @@
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
       "asOfISO": "2026-09-14",
-      "syncedAt": "2026-09-14T03:27:11.279Z"
+      "syncedAt": "2026-09-14T21:00:40.828Z"
     },
     "90148626522": {
       "client": "Klayo",
@@ -76,7 +76,7 @@
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
       "asOfISO": "2026-09-14",
-      "syncedAt": "2026-09-14T03:27:11.478Z"
+      "syncedAt": "2026-09-14T21:00:41.085Z"
     }
   }
 }
