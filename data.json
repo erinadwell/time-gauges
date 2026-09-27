@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T21:00:21.955Z",
+  "updated": "2026-09-27T21:00:22.393Z",
   "clients": {
     "90148085487": {
       "client": "LabFinder",
@@ -9,8 +9,8 @@
       "periodLabel": "September 2026",
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
-      "asOfISO": "2026-09-26",
-      "syncedAt": "2026-09-26T21:00:20.502Z"
+      "asOfISO": "2026-09-27",
+      "syncedAt": "2026-09-27T21:00:20.824Z"
     },
     "90148086172": {
       "client": "Guerrilla Charm",
@@ -20,8 +20,8 @@
       "periodLabel": "September 2026",
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
-      "asOfISO": "2026-09-26",
-      "syncedAt": "2026-09-26T21:00:20.785Z"
+      "asOfISO": "2026-09-27",
+      "syncedAt": "2026-09-27T21:00:21.149Z"
     },
     "90148088685": {
       "client": "Sullivan Healthcare",
@@ -31,8 +31,8 @@
       "periodLabel": "September 2026",
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
-      "asOfISO": "2026-09-26",
-      "syncedAt": "2026-09-26T21:00:21.070Z"
+      "asOfISO": "2026-09-27",
+      "syncedAt": "2026-09-27T21:00:21.503Z"
     },
     "90148090283": {
       "client": "RDU Law Firm",
@@ -42,8 +42,8 @@
       "periodLabel": "September 2026",
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
-      "asOfISO": "2026-09-26",
-      "syncedAt": "2026-09-26T21:00:21.373Z"
+      "asOfISO": "2026-09-27",
+      "syncedAt": "2026-09-27T21:00:21.729Z"
     },
     "90148090929": {
       "client": "Senexis AI",
@@ -53,8 +53,8 @@
       "periodLabel": "All time to date",
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
-      "asOfISO": "2026-09-26",
-      "syncedAt": "2026-09-26T21:00:21.582Z"
+      "asOfISO": "2026-09-27",
+      "syncedAt": "2026-09-27T21:00:22.021Z"
     },
     "90148091353": {
       "client": "TADA Cognitive Solutions",
@@ -64,8 +64,8 @@
       "periodLabel": "September 2026",
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
-      "asOfISO": "2026-09-26",
-      "syncedAt": "2026-09-26T21:00:21.765Z"
+      "asOfISO": "2026-09-27",
+      "syncedAt": "2026-09-27T21:00:22.205Z"
     },
     "90148626522": {
       "client": "Klayo",
@@ -75,8 +75,8 @@
       "periodLabel": "All time to date",
       "monthStartISO": "2026-08-31",
       "monthEndISO": "2026-09-30",
-      "asOfISO": "2026-09-26",
-      "syncedAt": "2026-09-26T21:00:21.955Z"
+      "asOfISO": "2026-09-27",
+      "syncedAt": "2026-09-27T21:00:22.393Z"
     }
   }
 }
