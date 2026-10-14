@@ -1,16 +1,16 @@
 {
-  "updated": "2026-10-13T21:00:30.257Z",
+  "updated": "2026-10-14T21:00:36.644Z",
   "clients": {
     "90148085487": {
       "client": "LabFinder",
       "mode": "monthly",
       "limitHours": 37,
-      "trackedMs": 40067275,
+      "trackedMs": 40771488,
       "periodLabel": "October 2026",
       "monthStartISO": "2026-09-30",
       "monthEndISO": "2026-10-31",
-      "asOfISO": "2026-10-13",
-      "syncedAt": "2026-10-13T21:00:28.689Z"
+      "asOfISO": "2026-10-14",
+      "syncedAt": "2026-10-14T21:00:34.910Z"
     },
     "90148086172": {
       "client": "Guerrilla Charm",
@@ -20,19 +20,19 @@
       "periodLabel": "October 2026",
       "monthStartISO": "2026-09-30",
       "monthEndISO": "2026-10-31",
-      "asOfISO": "2026-10-13",
-      "syncedAt": "2026-10-13T21:00:28.988Z"
+      "asOfISO": "2026-10-14",
+      "syncedAt": "2026-10-14T21:00:35.223Z"
     },
     "90148088685": {
       "client": "Sullivan Healthcare",
       "mode": "monthly",
       "limitHours": 44,
-      "trackedMs": 132200131,
+      "trackedMs": 135500131,
       "periodLabel": "October 2026",
       "monthStartISO": "2026-09-30",
       "monthEndISO": "2026-10-31",
-      "asOfISO": "2026-10-13",
-      "syncedAt": "2026-10-13T21:00:29.336Z"
+      "asOfISO": "2026-10-14",
+      "syncedAt": "2026-10-14T21:00:35.595Z"
     },
     "90148090283": {
       "client": "RDU Law Firm",
@@ -42,8 +42,8 @@
       "periodLabel": "October 2026",
       "monthStartISO": "2026-09-30",
       "monthEndISO": "2026-10-31",
-      "asOfISO": "2026-10-13",
-      "syncedAt": "2026-10-13T21:00:29.605Z"
+      "asOfISO": "2026-10-14",
+      "syncedAt": "2026-10-14T21:00:35.907Z"
     },
     "90148090929": {
       "client": "Senexis AI",
@@ -53,8 +53,8 @@
       "periodLabel": "All time to date",
       "monthStartISO": "2026-09-30",
       "monthEndISO": "2026-10-31",
-      "asOfISO": "2026-10-13",
-      "syncedAt": "2026-10-13T21:00:29.881Z"
+      "asOfISO": "2026-10-14",
+      "syncedAt": "2026-10-14T21:00:36.175Z"
     },
     "90148091353": {
       "client": "TADA Cognitive Solutions",
@@ -64,19 +64,19 @@
       "periodLabel": "October 2026",
       "monthStartISO": "2026-09-30",
       "monthEndISO": "2026-10-31",
-      "asOfISO": "2026-10-13",
-      "syncedAt": "2026-10-13T21:00:30.071Z"
+      "asOfISO": "2026-10-14",
+      "syncedAt": "2026-10-14T21:00:36.376Z"
     },
     "90148626522": {
       "client": "Klayo",
       "mode": "all-time",
       "limitHours": 10,
-      "trackedMs": 0,
+      "trackedMs": 5117501,
       "periodLabel": "All time to date",
       "monthStartISO": "2026-09-30",
       "monthEndISO": "2026-10-31",
-      "asOfISO": "2026-10-13",
-      "syncedAt": "2026-10-13T21:00:30.257Z"
+      "asOfISO": "2026-10-14",
+      "syncedAt": "2026-10-14T21:00:36.644Z"
     }
   }
 }
